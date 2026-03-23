@@ -22,7 +22,7 @@ Run Locally:
 add:GEMINI_API_KEY=your_api_key_here 
 3. npm run dev
 
-Live Demo: (Add your deployed link here)
+Live Demo: (https://ai-exam-planner-with-quiz-system.vercel.app/)
 
 Author: Benil
 
