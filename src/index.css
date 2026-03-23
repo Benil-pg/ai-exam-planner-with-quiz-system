@@ -29,6 +29,17 @@
   .btn-secondary {
     @apply px-6 py-3 bg-white hover:bg-slate-50 text-slate-700 font-semibold border border-slate-200 rounded-xl transition-all active:scale-95 shadow-sm;
   }
+
+  /* Hide native number input spin buttons */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
 }
 
 .bg-gradient-mesh {

@@ -21,7 +21,8 @@ import {
   XCircle,
   Upload,
   FileText,
-  X
+  X,
+  Minus
 } from 'lucide-react';
 import { Subject, StudyDay, QuizQuestion, generateQuiz } from './services/geminiService';
 
@@ -239,14 +240,28 @@ export default function App() {
                           className="glass-input flex-1 p-3 w-full"
                         />
                         <div className="flex items-center gap-2 w-full md:w-auto">
-                          <input
-                            type="number"
-                            min="1"
-                            placeholder="Units"
-                            value={subject.units}
-                            onChange={(e) => updateSubject(subject.id, 'units', parseInt(e.target.value) || 1)}
-                            className="glass-input w-24 p-3"
-                          />
+                          <div className="flex items-center bg-white/50 backdrop-blur-sm border border-white/30 rounded-xl overflow-hidden">
+                            <button 
+                              onClick={() => updateSubject(subject.id, 'units', Math.max(1, subject.units - 1))}
+                              className="p-3 hover:bg-slate-100 text-slate-600 transition-colors"
+                            >
+                              <Minus className="w-4 h-4" />
+                            </button>
+                            <input
+                              type="number"
+                              min="1"
+                              placeholder="Units"
+                              value={subject.units}
+                              onChange={(e) => updateSubject(subject.id, 'units', parseInt(e.target.value) || 1)}
+                              className="w-12 text-center bg-transparent border-none focus:ring-0 p-0 font-bold"
+                            />
+                            <button 
+                              onClick={() => updateSubject(subject.id, 'units', subject.units + 1)}
+                              className="p-3 hover:bg-slate-100 text-slate-600 transition-colors"
+                            >
+                              <Plus className="w-4 h-4" />
+                            </button>
+                          </div>
                           <span className="text-slate-500 text-sm">Units</span>
                           <button 
                             onClick={() => removeSubject(subject.id)}
@@ -281,16 +296,30 @@ export default function App() {
                     </div>
                     <div className="space-y-2">
                       <label className="text-sm font-semibold text-slate-700 uppercase tracking-wider">Study Hours / Day</label>
-                      <div className="relative">
-                        <Clock className="absolute left-3 top-3 text-slate-400 w-5 h-5" />
+                      <div className="flex items-center bg-white/50 backdrop-blur-sm border border-white/30 rounded-xl overflow-hidden h-[50px]">
+                        <div className="pl-3 flex items-center text-slate-400">
+                          <Clock className="w-5 h-5" />
+                        </div>
+                        <button 
+                          onClick={() => setStudyHours(Math.max(1, studyHours - 1))}
+                          className="p-3 hover:bg-slate-100 text-slate-600 transition-colors h-full"
+                        >
+                          <Minus className="w-4 h-4" />
+                        </button>
                         <input
                           type="number"
                           min="1"
                           max="24"
                           value={studyHours}
                           onChange={(e) => setStudyHours(parseInt(e.target.value) || 1)}
-                          className="glass-input w-full p-3 pl-10"
+                          className="flex-1 text-center bg-transparent border-none focus:ring-0 p-0 font-bold"
                         />
+                        <button 
+                          onClick={() => setStudyHours(Math.min(24, studyHours + 1))}
+                          className="p-3 hover:bg-slate-100 text-slate-600 transition-colors h-full"
+                        >
+                          <Plus className="w-4 h-4" />
+                        </button>
                       </div>
                     </div>
                   </div>
